@@ -96,7 +96,7 @@ function go
     echo -e "#"
 
     # Lancio l'export dei dati tramite WLST
-    java weblogic.WLST $(dirname $0)/bin/export.py 2> ${TMP_ERR} 1>  /dev/null
+    java weblogic.WLST $(readlink -f  $(dirname $0))/bin/export.py 2> ${TMP_ERR} 1>  /dev/null
 
 	if [[ $? -ne 0 ]]; then esciMale 888 "Errore nell'esecuzione dello script WLST!"; fi
 
