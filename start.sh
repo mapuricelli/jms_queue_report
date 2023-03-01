@@ -11,12 +11,12 @@ export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
 . ${LIB_DIR}/colori.conf
 
-export JAVA_HOME=/app/oss3a/bea-wls-10.3.6/jrockit-jdk1.6.0_31-R28.2.3-4.1.0
-export PATH=${PATH}:${JAVA_HOME}/jre/bin/
-
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
 export SPOOL_NAMING_CONV=
 export MOD_SPOOL_DIR=
+
+export JAVA_HOME=/app/oss3a/bea-wls-10.3.6/jrockit-jdk1.6.0_31-R28.2.3-4.1.0
+export PATH=${PATH}:${JAVA_HOME}/jre/bin/
 
 export ENV_CONF=
 export ENV=
@@ -41,9 +41,7 @@ function usage
 function missingEnv
 {
   echo -e ""
-  echo -e "- ${FGRossoChiaro}Attenzione${FGReset}"
-  echo -e ""
-  echo -e "    L'environment ${FGGiallo}${ENV}.${CATENA}${FGReset} non esiste"
+  echo -e "- ${FGRossoChiaro}Attenzione${FGReset}: l'environment ${FGGiallo}${ENV}.${CATENA}${FGReset} non esiste"
 
   usage
 }
