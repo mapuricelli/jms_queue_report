@@ -38,17 +38,17 @@ chmod +x ${HOME}/jms_queue_report/inst-update.sh
 
 > Eseguire dunque lo script ```inst-update.sh``` e seguire le istruzioni.
 
-## Configurazione post prima installazione
+## Configurazione
 
 > Per ogni Environment desiderato creare un nuovo file di configurazione partendo dal template ```conf/env.Template.PRO``` .
 
 > Esempio per un **ipotetico** Environment **SBTEST** in Ambiente **3B**:
 
-> __Warning__ Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventualmente file già esistente.
+> __Warning__ Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventuale file già esistente.
 
 ```bash
 # Duplico il template
-# Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventualmente file già esistente.
+# Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventuale file già esistente.
 cd ${HOME}/jms_queue_report/conf/
 cp env.Template.PRO env.SBTEST.3B
 

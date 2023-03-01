@@ -9,14 +9,10 @@ export SPOOL_DIR="${SCRIPT_DIR}/spools"
 export CONF_DIR=$"${SCRIPT_DIR}/conf"
 export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
-. ${LIB_DIR}/colori.conf
 
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
 export SPOOL_NAMING_CONV=
 export MOD_SPOOL_DIR=
-
-export JAVA_HOME=/app/oss3a/bea-wls-10.3.6/jrockit-jdk1.6.0_31-R28.2.3-4.1.0
-export PATH=${PATH}:${JAVA_HOME}/jre/bin/
 
 export ENV_CONF=
 export ENV=
@@ -38,6 +34,14 @@ function usage
   exit 999
 }
 
+function header
+{
+  echo -e
+  echo -e "########################################################################"
+  echo -e "########################### ${FGAzzurroChiaro}JMS Queue Report${FGReset} ###########################"
+  echo -e "########################################################################"
+}
+
 function missingEnv
 {
   echo -e ""
@@ -50,14 +54,17 @@ function esciMale
 {
   # $1 Codice di exit
   # $2 Messaggio di exit
+  # $3 Messaggio di errore d'origine
   
   echo -e "#  - ${FGRossoChiaro}Fail${FGReset}: ${2}"
-  echo -e "#"
   
-  cat ${TMP_ERR} | while read ERR
-  do
-    echo -e "#    ${FGRossoChiaro}* ${ERR}${FGReset}"
-  done
+  if [[ -n "${3}" ]]; then
+    echo -e "#"
+    echo ${3} | while read ERR
+    do
+      echo -e "#    ${FGRossoChiaro}* ${ERR}${FGReset}"
+    done
+  fi
   
   echo -e "#"
   echo -e "#  - Exit Code ${FGRossoChiaro}${1}${FGReset}"
@@ -71,14 +78,8 @@ function go
 {
 
   if [[ ${CATENA} != "" ]]; then
-
-    echo -e
-    echo -e "########################################################################"
-	echo -e "########################### ${FGAzzurroChiaro}JMS Queue Report${FGReset} ###########################"
-    echo -e "############################## ${FGGiallo}Catena ${CATENA}${FGReset} ###############################"
-    echo -e "########################################################################"
     echo -e "#"
-    echo -e "#  - Per tutte le Destinazioni presenti nei seguenti Moduli JMS:"
+    echo -e "#  - Per tutte le Destinazioni presenti in catena ${FGGiallo}Catena ${CATENA}${FGReset} nei seguenti Moduli JMS:"
     echo -e "#"
 	for MOD in "${MODULI_JMS_LIST[@]}"
     do
@@ -98,7 +99,7 @@ function go
     # Lancio l'export dei dati tramite WLST
     java weblogic.WLST ${BIN_DIR}/export.py 2> ${TMP_ERR} 1>  /dev/null
 
-	if [[ $? -ne 0 ]]; then esciMale 888 "Errore nell'esecuzione dello script WLST!"; fi
+	if [[ $? -ne 0 ]]; then esciMale 888 "Errore nell'esecuzione dello script WLST!" $(cat ${TMP_ERR}); fi
 
     echo -e "#"
     echo -e "#  - Estrazione completata, contenuti compressi e backuppati :"
@@ -192,6 +193,19 @@ do
       ;;
   esac
 done
+
+
+
+
+
+if [[ ! -f ${LIB_DIR}/colori.conf ]]; then
+  echo -e "#"
+  esciMale 666 "Impossibile trovare il file di conf\n#\n#          ${FGGiallo}${LIB_DIR}/colori.conf${FGReset}!"
+else
+  . ${LIB_DIR}/colori.conf
+fi
+
+header
 
 if [[ $# -lt 1 ]]; then
   usage

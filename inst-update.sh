@@ -26,8 +26,18 @@ function esciMale
 {
   # $1 Codice di exit
   # $2 Messaggio di exit
+  # $3 Messaggio di errore d'origine
   
   echo -e "#  - ${FGRossoChiaro}Fail${FGReset}: ${2}"
+  
+  if [[ -n "${3}" ]]; then
+    echo -e "#"
+    echo ${3} | while read ERR
+    do
+      echo -e "#    ${FGRossoChiaro}* ${ERR}${FGReset}"
+    done
+  fi
+  
   echo -e "#"
   echo -e "#  - Exit Code ${FGRossoChiaro}${1}${FGReset}"
   echo -e "#"
