@@ -29,7 +29,7 @@
   
 ## Installazione
 
-> Eseguire lo script ```start.sh``` da una shell Linux e seguire le istruzioni.
+> Eseguire lo script ```inst-update.sh``` da una shell Linux e seguire le istruzioni.
 
 ## Configurazione post prima installazione
 
