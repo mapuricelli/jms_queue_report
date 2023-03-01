@@ -9,6 +9,9 @@ export CONF_DIR=$(readlink -f  $(dirname $0)/conf)
 export LIB_DIR=$(readlink -f  $(dirname $0)/lib)
 . ${LIB_DIR}/colori.conf
 
+export JAVA_HOME=/app/oss3a/bea-wls-10.3.6/jrockit-jdk1.6.0_31-R28.2.3-4.1.0
+export PATH=${PATH}:${JAVA_HOME}/jre/bin/
+
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
 export SPOOL_NAMING_CONV=
 export MOD_SPOOL_DIR=
@@ -16,10 +19,6 @@ export MOD_SPOOL_DIR=
 export ENV_CONF=
 export ENV=
 export CATENA=
-
-export URL=
-export USER=
-export PASSWD=
 
 function usage
 {
