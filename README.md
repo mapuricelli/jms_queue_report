@@ -29,7 +29,14 @@
   
 ## Installazione
 
-> Eseguire lo script ```inst-update.sh``` da una shell Linux e seguire le istruzioni.
+> __Warning__ concedere i permessi di esecuzione allo script Install/Update solo per la prima installazione.
+
+```bash
+chmod +x ${HOME}/jms_queue_report/inst-update.sh
+
+```
+
+> Eseguire dunque lo script ```inst-update.sh``` e seguire le istruzioni.
 
 ## Configurazione post prima installazione
 
