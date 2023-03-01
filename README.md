@@ -21,28 +21,17 @@
   
 ## Prerequisiti
 
+> Piattaforme Linux x86.
+
 > Occorre che sulla macchina su cui si vuole installare **JMS Queue Report** ci sia già un'installazione funzionante di Weblogic WLST.
 
 > E' anche necessario che l'Admin_Server specificato nella variabile ```${ADMIN_URL}``` *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))* sia in RUNNING.
   
 ## Installazione
 
-> Eseguire i seguenti comandi da una shell Linux:
+> Eseguire lo script ```start.sh``` da una shell Linux e seguire le istruzioni.
 
-```bash
-# Effettuare il download del pacchetto sw:
-wget -q -O /tmp/jms_queue_report.tar.gz \
-  https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.tar.gz
-
-# Estrarre il pacchetto nella ${HOME} dell'utente applicativo utilizzato per la WLST CLI:
-cd ${HOME}
-tar zxfv /tmp/jms_queue_report.tar.gz
-rm -f  ${HOME}/jms_queue_report
-ln -fs ${HOME}/jms_queue_report-main/ ${HOME}/jms_queue_report
-
-```
-
-## Configurazione
+## Configurazione post prima installazione
 
 > Per ogni Environment desiderato creare un nuovo file di configurazione partendo dal template ```conf/env.Template.PRO``` .
 
@@ -82,15 +71,12 @@ export SETDOMAINENV_PATH="/app/oss/bea-domains/sbtest-domain/bin/setDomainEnv.sh
 
 ## Esecuzione
 
-> Dare i permessi d'esecuzione necessari ed eseguire lo script ```start.sh```senza parametri per visualizzare gli Environment disponibili (il template viene skippato).
+> Dare i permessi d'esecuzione necessari ed eseguire lo script ```start.sh``` senza parametri per visualizzare gli Environment disponibili (il template viene skippato).
 
-> Esempio di cui sopra:
+> Esempio:
 
 ```bash
 cd ${HOME}/jms_queue_report/
-chmod +x ./start.sh
-chmod +x ./bin/uuencode
-chmod +x ./bin/csv2html.sh
 ./start.sh
 
 ```
