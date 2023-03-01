@@ -116,6 +116,7 @@ function go
     rm -f  ${HOME}/jms_queue_report
     ln -fs ${HOME}/jms_queue_report-main/ ${HOME}/jms_queue_report
     chmod +x ${SCRIPT_DIR}/start.sh
+    rm -f    ${SCRIPT_DIR}/update.sh
     chmod +x ${SCRIPT_DIR}/inst-update.sh
     chmod +x ${BIN_DIR}/uuencode
     chmod +x ${BIN_DIR}/csv2html.sh
