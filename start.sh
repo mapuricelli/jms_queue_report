@@ -4,9 +4,11 @@ export TMP_SPOOL="$(mktemp)" || exit 1
 export TMP_ERR="$(mktemp)" || exit 1
 trap 'rm -f ${TMP_SPOOL}* ${TMP_ERR}* ' EXIT
 
-export SPOOL_DIR=$(readlink -f  $(dirname $0)/spools)
-export CONF_DIR=$(readlink -f  $(dirname $0)/conf)
-export LIB_DIR=$(readlink -f  $(dirname $0)/lib)
+export SCRIPT_DIR=$(readlink -f  $(dirname $0))
+export SPOOL_DIR="${SCRIPT_DIR}/spools"
+export CONF_DIR=$"${SCRIPT_DIR}/conf"
+export LIB_DIR="${SCRIPT_DIR}/lib"
+export BIN_DIR="${SCRIPT_DIR}/bin"
 . ${LIB_DIR}/colori.conf
 
 export JAVA_HOME=/app/oss3a/bea-wls-10.3.6/jrockit-jdk1.6.0_31-R28.2.3-4.1.0
@@ -96,7 +98,7 @@ function go
     echo -e "#"
 
     # Lancio l'export dei dati tramite WLST
-    java weblogic.WLST $(readlink -f  $(dirname $0))/bin/export.py 2> ${TMP_ERR} 1>  /dev/null
+    java weblogic.WLST ${BIN_DIR}/export.py 2> ${TMP_ERR} 1>  /dev/null
 
 	if [[ $? -ne 0 ]]; then esciMale 888 "Errore nell'esecuzione dello script WLST!"; fi
 
@@ -116,7 +118,7 @@ function go
 	  (head -n 1 ${TMP_SPOOL}_${MOD} && tail -n +2 ${TMP_SPOOL}_${MOD} | sort) > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv
 
       # Creo la versione html
-      $(dirname $0)/bin/csv2html.sh ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
+      ${BIN_DIR}/csv2html.sh ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
 	  sed -i "s/{{TITOLO}}/<h1>JMS Queue Report<\/h1>/" ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
 	  sed -i "s/{{SOTTOTITOLO}}/<h3>(${ENV} - ${CATENA})<\/h3>/" ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
 	  sed -i "s/{{TITOLETTO}}/<h2>${MOD}<\/h2>/" ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
@@ -163,7 +165,7 @@ function go
         MOD_SPOOL_DIR=${SPOOL_DIR}/${CATENA}/${ENV}/${MOD}
 		MOD_FILENAME=${MOD}_${SPOOL_NAMING_CONV}
 		
-        $(dirname $0)/bin/uuencode ${MOD_SPOOL_DIR}/${MOD_FILENAME}.tar $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}.tar)
+        ${BIN_DIR}/uuencode ${MOD_SPOOL_DIR}/${MOD_FILENAME}.tar $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}.tar)
       done
 
     ) | mailx -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
