@@ -69,8 +69,8 @@ function checkPresent
     done
     
     echo -e  "#"
-    echo -e  "#  Vuoi sovrascriverlo?"
-    echo -en "#  (Y/n) "
+    echo -e  "#    Vuoi sovrascriverlo?"
+    echo -en "#    (Y/n) "
     
     while read YESNO
     do
@@ -82,9 +82,13 @@ function checkPresent
         break;
 
       else
-        echo -en "#  (Y/n) "
+        echo -en "#    (Y/n) "
       fi
     done
+  
+  else
+  
+    download
   
   fi
   
@@ -106,14 +110,21 @@ function go
     echo -e "#"
     esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${HOME}${FGReset}.\n#          Verificare i permessi su file e directory."
   else  
+    echo -e "                        ${FGVerdeChiaro}OK${FGReset}"
+    
+    echo -en "#  - Aggiungo i permessi di esecuzione dove necessario"
     rm -f  ${HOME}/jms_queue_report
     ln -fs ${HOME}/jms_queue_report-main/ ${HOME}/jms_queue_report
     chmod +x ${SCRIPT_DIR}/start.sh
+    chmod +x ${SCRIPT_DIR}/update.sh
     chmod +x ${BIN_DIR}/uuencode
     chmod +x ${BIN_DIR}/csv2html.sh
-    echo -e "              ${FGVerdeChiaro}OK${FGReset}"
+    echo -e "                ${FGVerdeChiaro}OK${FGReset}"
   fi
-
+  
+  echo -e  "#"
+  echo -e "########################################################################"
+  
 }
 
 echo -e
