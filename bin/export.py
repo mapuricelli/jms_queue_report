@@ -8,11 +8,11 @@ from javax.jms import TextMessage
 from javax.jms import ObjectMessage
 
 TMP_SPOOL = os.environ["TMP_SPOOL"]
-URL = os.environ["URL"]
-USER = os.environ["USER"]
-PASSWD = os.environ["PASSWD"]
+ADMIN_URL = os.environ["ADMIN_URL"]
+ADMIN_USER = os.environ["ADMIN_USER"]
+ADMIN_PASSWD = os.environ["ADMIN_PASSWD"]
 
-connect(USER,PASSWD,URL);
+connect(ADMIN_USER,ADMIN_PASSWD,ADMIN_URL);
 
 for MOD in MODULI_JMS:
 
