@@ -27,12 +27,19 @@
 
 > E' anche necessario che l'Admin_Server specificato nella variabile ```${ADMIN_URL}``` *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))* sia in RUNNING.
   
-## Installazione
+## Prima Installazione
 
-> __Warning__ concedere i permessi di esecuzione allo script Install/Update solo per la prima installazione.
+> Scaricare il [Pacchetto ZIP](https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip), depositarlo nella ```/tmp/``` ed eseguire i seguenti comandi:
+
+> __Warning__ Attenzione: Se non si vuole installare nella ```${HOME}``` sostituire la variabile con la directory desiderata.
 
 ```bash
-chmod +x ${HOME}/jms_queue_report/inst-update.sh
+cd ${HOME}
+unzip -oq /tmp/jms_queue_report-main.zip
+ln -fs ${HOME}/jms_queue_report-main/ ${HOME}/jms_queue_report
+cd ${HOME}/jms_queue_report/
+chmod +x ./inst-update.sh
+./inst-update.sh
 
 ```
 

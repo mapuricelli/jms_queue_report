@@ -9,6 +9,7 @@ export SPOOL_DIR="${SCRIPT_DIR}/spools"
 export CONF_DIR=$"${SCRIPT_DIR}/conf"
 export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
+export INSTALL_DIR="${HOME}"
 . ${LIB_DIR}/colori.conf
 
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
@@ -111,31 +112,63 @@ function go
 {
   
   echo -e  "#"
-  echo -en "#  - Mi porto nella \${HOME} ed estraggo i file"
+  echo -e "#  - Mi porto nella ${FGVerdeChiaro}$(echo ${INSTALL_DIR} | sed -e 's/$/\//')${FGReset} ed estraggo i file"
   
-  cd ${HOME} && tar zxf /tmp/jms_queue_report.tar.gz
+  cd ${INSTALL_DIR} && tar zxf /tmp/jms_queue_report.tar.gz
   
   if [[ $? -ne 0 ]]; then
     echo -e ""
     echo -e "#"
-    esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${HOME}${FGReset}.\n#          Verificare i permessi su file e directory."
+    esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${INSTALL_DIR}${FGReset}.\n#          Verificare i permessi su file e directory."
   else  
-    echo -e "                        ${FGVerdeChiaro}OK${FGReset}"
+    echo -e "#    ${FGVerdeChiaro}OK${FGReset}"
+    echo -e "#"
     
-    echo -en "#  - Aggiungo i permessi di esecuzione dove necessario"
-    rm -f  ${HOME}/jms_queue_report
-    ln -fs ${HOME}/jms_queue_report-main/ ${HOME}/jms_queue_report
+    echo -e "#  - Aggiungo i permessi di esecuzione dove necessario"
+    rm -f  ${INSTALL_DIR}/jms_queue_report
+    ln -fs ${INSTALL_DIR}/jms_queue_report-main/ ${INSTALL_DIR}/jms_queue_report
     chmod +x ${SCRIPT_DIR}/start.sh
     rm -f    ${SCRIPT_DIR}/update.sh
     chmod +x ${SCRIPT_DIR}/inst-update.sh
     chmod +x ${BIN_DIR}/uuencode
     chmod +x ${BIN_DIR}/csv2html.sh
-    echo -e "                ${FGVerdeChiaro}OK${FGReset}"
+    echo -e "#    ${FGVerdeChiaro}OK${FGReset}"
+    echo -e "#"
   fi
   
   echo -e  "#"
   echo -e "########################################################################"
   
+}
+
+function chiediInstallDir
+{
+  echo -e  "#"
+  echo -e  "#    In quale directory vuoi installare/aggiornare?"
+  echo -e  "#"
+  echo -e  "#    (Default: ${FGRossoChiaro}$(echo ${HOME} | sed -e 's/$/\//')${FGReset})"
+  echo -e  "#"
+  echo -en "#    > "
+  
+  while read TMP_INSTALL_DIR
+  do
+  
+    if [[ "${TMP_INSTALL_DIR}" == "" ]]; then TMP_INSTALL_DIR=${INSTALL_DIR}; fi
+  
+    if [[ -d "${TMP_INSTALL_DIR}" ]]; then
+      INSTALL_DIR=${TMP_INSTALL_DIR}
+      break;
+    
+    else
+      echo $TMP_INSTALL_DIR
+      exit
+      mkdir ${TMP_INSTALL_DIR} && INSTALL_DIR=${TMP_INSTALL_DIR}  || esciMale 485 "Impossibile creare la directory:\n\n#          * ${FGRossoChiaro}${INSTALL_DIR}${FGReset}\n"
+      echo -en "#    > "
+    fi
+
+    download
+    
+  done
 }
 
 echo -e
@@ -145,4 +178,4 @@ echo -e "######################## ${FGGiallo}Aggiornamento Software${FGReset} ##
 echo -e "########################################################################"
 echo -e "#"
 
-checkPresent
+chiediInstallDir && checkPresent
