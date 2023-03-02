@@ -54,13 +54,13 @@ function download
   echo -e  "#"
   echo -en "#      ${FGiallo}https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report/${FGReset}"
   curl -s --connect-timeout 3 \
-    --output /tmp/jms_queue_report.tar.gz \
-    --location https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.tar.gz
+    --output /tmp/jms_queue_report-main.zip \
+    --location https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip
 
   if [[ $? -ne 0 ]]; then
     echo -e ""
     echo -e "#"
-    esciMale 888 "Impossibile scaricare l'archivio.\n#          Verificare che questa macchina abbia accesso a Internet.\n#          In caso contrario:\n\n#          * Scaricare l'archivio software manualmente\n#          * Posizionarlo sotto ${FGGiallo}/tmp/jms_queue_report.tar.gz${FGReset}\n#          * Rilanciare questo script."
+    esciMale 888 "Impossibile scaricare l'archivio.\n#          Verificare che questa macchina abbia accesso a Internet.\n#          In caso contrario:\n\n#          * Scaricare l'archivio software manualmente\n#          * Posizionarlo sotto ${FGGiallo}/tmp/jms_queue_report.zip${FGReset}\n#          * Rilanciare questo script."
   else
     echo -e "              ${FGVerdeChiaro}OK${FGReset}"
   fi
@@ -68,13 +68,13 @@ function download
 
 function checkPresent
 {  
-  if [[ -f /tmp/jms_queue_report.tar.gz ]]; then
+  if [[ -f /tmp/jms_queue_report.zip ]]; then
   
     echo -e "#"
     echo -e "#  - ${FGGiallo}Attenzione${FGReset}: l'archivio software e' gia' presente in questa versione:"
     echo -e "#"
     
-    md5sum /tmp/jms_queue_report.tar.gz | head -1 | while read MD5
+    md5sum /tmp/jms_queue_report.zip | head -1 | while read MD5
     do
       echo -e "#     ${FGGiallo}$(echo ${MD5} | awk -F" " {'print $1'})${FGReset} $(echo ${MD5} | awk -F" " {'print $2'})"
     done
@@ -103,7 +103,7 @@ function checkPresent
   
   fi
   
-  if [[ -f /tmp/jms_queue_report.tar.gz ]]; then
+  if [[ -f /tmp/jms_queue_report.zip ]]; then
     go
   fi
 }
@@ -114,7 +114,7 @@ function go
   echo -e  "#"
   echo -e "#  - Mi porto nella ${FGVerdeChiaro}$(echo ${INSTALL_DIR} | sed -e 's/$/\//')${FGReset} ed estraggo i file"
   
-  cd ${INSTALL_DIR} && tar zxf /tmp/jms_queue_report.tar.gz
+  cd ${INSTALL_DIR} && unzip -oq /tmp/jms_queue_report.zip
   
   if [[ $? -ne 0 ]]; then
     echo -e ""
@@ -160,13 +160,9 @@ function chiediInstallDir
       break;
     
     else
-      echo $TMP_INSTALL_DIR
-      exit
       mkdir ${TMP_INSTALL_DIR} && INSTALL_DIR=${TMP_INSTALL_DIR}  || esciMale 485 "Impossibile creare la directory:\n\n#          * ${FGRossoChiaro}${INSTALL_DIR}${FGReset}\n"
       echo -en "#    > "
     fi
-
-    download
     
   done
 }
