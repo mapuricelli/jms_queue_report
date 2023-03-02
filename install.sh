@@ -45,7 +45,6 @@ function go
     unzip -oq /tmp/jms_queue_report-main.zip
     rm -f  ${HOME}/jms_queue_report
     ln -fs ${INSTALL_DIR}/jms_queue_report-main/ ${HOME}/jms_queue_report
-    ln -fs ${INSTALL_DIR}/jms_queue_report-main/ ${HOME}/jms_queue_report
     cd ${HOME}/jms_queue_report
     chmod +x start.sh
     chmod +x update.sh
