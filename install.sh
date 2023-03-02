@@ -1,18 +1,7 @@
 #!/bin/bash
 
-export TMP_SPOOL="$(mktemp)" || exit 1
-export TMP_ERR="$(mktemp)" || exit 1
-trap 'rm -f ${TMP_SPOOL}* ${TMP_ERR}* ' EXIT
-
-export SCRIPT_DIR=$(readlink -f  $(dirname $0))
-export SPOOL_DIR="${SCRIPT_DIR}/spools"
-export CONF_DIR=$"${SCRIPT_DIR}/conf"
-export LIB_DIR="${SCRIPT_DIR}/lib"
-export BIN_DIR="${SCRIPT_DIR}/bin"
 export INSTALL_DIR="${HOME}"
-. ${LIB_DIR}/colori.conf
-
-export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
+. lib/colori.conf
 
 function usage
 {
