@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export INSTALL_DIR="${HOME}"
-export SCRIPT_DIR=
 . colori.conf
 
 function usage
@@ -42,11 +41,11 @@ function go
 {
   if [[ -d ${INSTALL_DIR} ]]; then
     
-    cd ${INSTALL_DIR}/
+    cd ${INSTALL_DIR}
     unzip -oq /tmp/jms_queue_report-main.zip
     rm -f  ${HOME}/jms_queue_report
-    ln -fs ${INSTALL_DIR}/jms_queue_report-main/ ${HOME}/jms_queue_report
-    cd ${SCRIPT_DIR}
+    ln -fs ${INSTALL_DIR}jms_queue_report-main/ ${HOME}/jms_queue_report
+    cd ${HOME}/jms_queue_report
     chmod +x jqr
     chmod +x update
     chmod +x bin/uuencode
@@ -75,7 +74,6 @@ function cleanObsolete
 {
     # Cancello i file obsoleti e inutili!
 
-    cd ${SCRIPT_DIR}
     find . -name .gitignore -exec rm -f {} \;
     rm    -f install.sh
     rm    -f inst-update.sh
@@ -112,7 +110,6 @@ function chiediInstallDir
   done
   
   INSTALL_DIR="${INSTALL_DIR%/}/"
-  SCRIPT_DIR=${INSTALL_DIR}/jms_queue_report
 }
 
 echo -e
