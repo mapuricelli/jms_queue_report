@@ -41,8 +41,6 @@ function go
 {
   if [[ -d ${INSTALL_DIR} ]]; then
     
-    echo -e "#"
-    echo -e "#  - Installazione in corso"
     cd ${INSTALL_DIR}/
     unzip -oq /tmp/jms_queue_report-main.zip
     rm -f  ./jms_queue_report
@@ -54,14 +52,18 @@ function go
     chmod +x bin/uuencode
     chmod +x bin/csv2html.sh
     
-    echo -e "#    ${FGVerdeChiaro}OK${FGReset}"
-    echo -e "#"
-    
   else  
     echo -e "#"
     esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${INSTALL_DIR}${FGReset}.\n#          Verificare i permessi su file e directory."
     
   fi
+   
+  echo -e "#"
+  echo -e "#  - Installazione terminata, vai alla direcotory d'installazione:"
+  echo -e "# "
+  echo -e "#      cd ${FGVerdeChiaro}${INSTALL_DIR}/jms_queue_report/${FGReset}"
+  echo -e "# "
+  echo -e "# https://github.com/mapuricelli/jms_queue_report#configurazione"
   
   echo -e  "#"
   echo -e "########################################################################"
@@ -71,16 +73,18 @@ function go
 function chiediInstallDir
 {
   echo -e  "#"
-  echo -e  "#    In quale directory vuoi installare/aggiornare?"
+  echo -e  "#    In quale directory (${FGMarrone}\${INSTALL_DIR}${FGReset}) vuoi installare JMS Queue Report?"
   echo -e  "#"
-  echo -e  "#    (Default: ${FGRossoChiaro}$(echo ${HOME} | sed -e 's/$/\//')${FGReset})"
+  echo -e  "#    (Default home directory: ${FGRossoChiaro}$(echo ${HOME} | sed -e 's/$/\//')${FGReset})"
   echo -e  "#"
   echo -en "#    > "
   
   while read TMP_INSTALL_DIR
   do
   
-    if [[ "${TMP_INSTALL_DIR}" == "" ]]; then TMP_INSTALL_DIR=${INSTALL_DIR}; fi
+    if [[ "${TMP_INSTALL_DIR}" == "" ]]; then
+      TMP_INSTALL_DIR=${INSTALL_DIR};
+    fi
   
     if [[ -d "${TMP_INSTALL_DIR}" ]]; then
       INSTALL_DIR=${TMP_INSTALL_DIR}
@@ -88,7 +92,7 @@ function chiediInstallDir
     
     else
       mkdir ${TMP_INSTALL_DIR} && INSTALL_DIR=${TMP_INSTALL_DIR}  || esciMale 485 "Impossibile creare la directory:\n\n#          * ${FGRossoChiaro}${INSTALL_DIR}${FGReset}\n"
-      echo -en "#    > "
+      break;
     fi
     
   done

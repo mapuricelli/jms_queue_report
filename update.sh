@@ -9,7 +9,7 @@ export SPOOL_DIR="${SCRIPT_DIR}/spools"
 export CONF_DIR=$"${SCRIPT_DIR}/conf"
 export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
-export INSTALL_DIR="${HOME}"
+export INSTALL_DIR="${SCRIPT_DIR}"
 . ${LIB_DIR}/colori.conf
 
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
@@ -50,7 +50,7 @@ function esciMale
 function download
 {
   echo -e  "#"
-  echo -e  "#  - Scarico l'archivio aggiornato dal GitHub:"
+  echo -e  "#  - Scarico l'archivio aggiornato da GitHub:"
   echo -e  "#"
   echo -en "#      ${FGiallo}https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report/${FGReset}"
   curl -s --connect-timeout 3 \
@@ -60,7 +60,7 @@ function download
   if [[ $? -ne 0 ]]; then
     echo -e ""
     echo -e "#"
-    esciMale 888 "Impossibile scaricare l'archivio.\n#          Verificare che questa macchina abbia accesso a Internet.\n#          In caso contrario:\n\n#          * Scaricare l'archivio software manualmente\n#          * Posizionarlo sotto ${FGGiallo}/tmp/jms_queue_report-main.zip${FGReset}\n#          * Rilanciare questo script."
+    esciMale 888 "Impossibile scaricare l'archivio da GitHub.\n#          Verificare che questa macchina abbia accesso a Internet\n#          in caso contrario:\n#\n#          * Scaricare l'archivio manualmente tramite browser da:\n#            https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip\n#\n#          * Posizionarlo sotto ${FGGiallo}/tmp/jms_queue_report-main.zip${FGReset} e rilanciare questo script."
   else
     echo -e "              ${FGVerdeChiaro}OK${FGReset}"
   fi
@@ -76,7 +76,7 @@ function checkPresent
     
     md5sum /tmp/jms_queue_report-main.zip | head -1 | while read MD5
     do
-      echo -e "#     ${FGGiallo}$(echo ${MD5} | awk -F" " {'print $1'})${FGReset} $(echo ${MD5} | awk -F" " {'print $2'})"
+      echo -e "#      ${FGGiallo}$(echo ${MD5} | awk -F" " {'print $1'})${FGReset} $(echo ${MD5} | awk -F" " {'print $2'})"
     done
     
     echo -e  "#"
@@ -141,32 +141,6 @@ function go
   
 }
 
-function chiediInstallDir
-{
-  echo -e  "#"
-  echo -e  "#    In quale directory vuoi installare/aggiornare?"
-  echo -e  "#"
-  echo -e  "#    (Default: ${FGRossoChiaro}$(echo ${HOME} | sed -e 's/$/\//')${FGReset})"
-  echo -e  "#"
-  echo -en "#    > "
-  
-  while read TMP_INSTALL_DIR
-  do
-  
-    if [[ "${TMP_INSTALL_DIR}" == "" ]]; then TMP_INSTALL_DIR=${INSTALL_DIR}; fi
-  
-    if [[ -d "${TMP_INSTALL_DIR}" ]]; then
-      INSTALL_DIR=${TMP_INSTALL_DIR}
-      break;
-    
-    else
-      mkdir ${TMP_INSTALL_DIR} && INSTALL_DIR=${TMP_INSTALL_DIR}  || esciMale 485 "Impossibile creare la directory:\n\n#          * ${FGRossoChiaro}${INSTALL_DIR}${FGReset}\n"
-      echo -en "#    > "
-    fi
-    
-  done
-}
-
 echo -e
 echo -e "########################################################################"
 echo -e "########################### ${FGAzzurroChiaro}JMS Queue Report${FGReset} ###########################"
@@ -174,4 +148,4 @@ echo -e "######################## ${FGGiallo}Aggiornamento Software${FGReset} ##
 echo -e "########################################################################"
 echo -e "#"
 
-chiediInstallDir && checkPresent
+checkPresent

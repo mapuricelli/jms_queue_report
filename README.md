@@ -33,9 +33,9 @@
 
 ```bash
 cd /tmp/
-unzip -oq jms_queue_report-main.zip
-cd jms_queue_report-main/
-chmod +x ./install.sh
+unzip -jod lib/ jms_queue_report-main.zip jms_queue_report-main/lib/colori.conf lib/colori.conf 
+unzip -jod .    jms_queue_report-main.zip jms_queue_report-main/install.sh
+chmod +x install.sh
 ./install.sh
 
 ```
