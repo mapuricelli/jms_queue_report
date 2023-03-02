@@ -48,7 +48,8 @@ function go
     cd ./jms_queue_report
     chmod +x start.sh
     chmod +x update.sh
-    rm --f   install.sh
+    rm    -f install.sh
+    find . -name .gitignore -exec rm -f {} \;
     chmod +x bin/uuencode
     chmod +x bin/csv2html.sh
     
@@ -59,13 +60,15 @@ function go
   fi
    
   echo -e "#"
-  echo -e "#  - Installazione terminata, vai alla direcotory d'installazione:"
+  echo -e "#  - Installazione terminata, vai alla directory d'installazione:"
   echo -e "# "
-  echo -e "#      cd ${FGVerdeChiaro}${INSTALL_DIR}/jms_queue_report/${FGReset}"
+  echo -e "#      cd ${FGMarrone}${INSTALL_DIR}${FGVerdeChiaro}jms_queue_report${FGReset}/"
   echo -e "# "
-  echo -e "# https://github.com/mapuricelli/jms_queue_report#configurazione"
+  echo -e "#  - Per effettuare la configurazione segui la guida su GitHub:"
+  echo -e "# "
+  echo -e "#      ${FGiallo}https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report#configurazione${FGReset}"
   
-  echo -e  "#"
+  echo -e "#"
   echo -e "########################################################################"
   
 }
@@ -75,7 +78,7 @@ function chiediInstallDir
   echo -e  "#"
   echo -e  "#    In quale directory (${FGMarrone}\${INSTALL_DIR}${FGReset}) vuoi installare JMS Queue Report?"
   echo -e  "#"
-  echo -e  "#    (Default home directory: ${FGRossoChiaro}$(echo ${HOME} | sed -e 's/$/\//')${FGReset})"
+  echo -e  "#    (Default home directory: ${FGMarrone}$(echo ${HOME} | sed -e 's/$/\//')${FGReset})"
   echo -e  "#"
   echo -en "#    > "
   
@@ -83,7 +86,7 @@ function chiediInstallDir
   do
   
     if [[ "${TMP_INSTALL_DIR}" == "" ]]; then
-      TMP_INSTALL_DIR=${INSTALL_DIR};
+      TMP_INSTALL_DIR=${INSTALL_DIR}
     fi
   
     if [[ -d "${TMP_INSTALL_DIR}" ]]; then
@@ -96,6 +99,9 @@ function chiediInstallDir
     fi
     
   done
+  
+  INSTALL_DIR="${INSTALL_DIR%/}/"
+
 }
 
 echo -e
@@ -106,3 +112,4 @@ echo -e "#######################################################################
 echo -e "#"
 
 chiediInstallDir && go
+echo
