@@ -25,7 +25,9 @@
 
 > Occorre che sulla macchina su cui si vuole installare **JMS Queue Report** ci sia già un'installazione funzionante di Weblogic WLST.
 
-> E' anche necessario che l'**Admin Server** specificato nella variabile ```${ADMIN_URL}``` sia in RUNNING *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))*.
+> E' necessario che l'**Admin Server** specificato nella variabile ```${ADMIN_URL}``` sia in RUNNING *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))*.
+
+> Verificare infine che sia installata una versione recente di ```mailx``` che accetti il flag ```-a``` per gli allegati.
   
 ## Prima Installazione
 
