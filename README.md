@@ -31,20 +31,14 @@
 
 > Scaricare il [Pacchetto ZIP](https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip), depositarlo nella ```/tmp/``` ed eseguire i seguenti comandi:
 
-> __Warning__ Attenzione: Se non si vuole installare nella ```${HOME}``` sostituire la variabile con la directory desiderata.
-
 ```bash
-cd ${HOME}
-unzip -oq /tmp/jms_queue_report-main.zip
-rm -f ${HOME}/jms_queue_report
-ln -fs ${HOME}/jms_queue_report-main/ ${HOME}/jms_queue_report
-cd ${HOME}/jms_queue_report/
-chmod +x ./inst-update.sh
-./inst-update.sh
+cd /tmp/
+unzip -oq jms_queue_report-main.zip
+cd jms_queue_report-main/
+chmod +x ./install.sh
+./install.sh
 
 ```
-
-> Eseguire dunque lo script ```inst-update.sh``` e seguire le istruzioni.
 
 ## Configurazione
 
@@ -57,7 +51,7 @@ chmod +x ./inst-update.sh
 ```bash
 # Duplico il template
 # Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventuale file già esistente.
-cd ${HOME}/jms_queue_report/conf/
+cd ${INSTALL_DIR}/jms_queue_report/conf/
 cp env.Template.PRO env.SBTEST.3B
 
 ```
@@ -91,7 +85,7 @@ export SETDOMAINENV_PATH="/app/oss/bea-domains/sbtest-domain/bin/setDomainEnv.sh
 > Esempio:
 
 ```bash
-cd ${HOME}/jms_queue_report/
+cd ${INSTALL_DIR}/jms_queue_report/
 ./start.sh
 
 ```
