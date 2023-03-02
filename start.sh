@@ -23,22 +23,22 @@ function usage
   COUNT=$(ls -1 ${CONF_DIR}/env.* | grep -v ${CONF_DIR}/env.Template.PRO | wc -l )
 
   if [[ $COUNT -eq 0 ]]; then
-    echo "#"
+    echo -e "#"
     esciMale "87" "Non e' ancora stato configurato alcun Environment.\n#          Per ulteriori informazioni consultare la sezione Configurazione su GitHub:\n#\n#          https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report#configurazione${FGReset}"
     
   else
-    echo -e ""
-    echo -e "- Parametri di Environment disponibili:"
-    echo -e ""
+    echo -e "#"
+    echo -e "#  - Parametri di Environment disponibili:"
+    echo -e "#"
     
     ls -1 ${CONF_DIR}/env.* | grep -v ${CONF_DIR}/env.Template.PRO | awk -F"." '{print $2"."$3}' | sort -u | while read C
     do
-      echo -e "    ${0} ${FGGiallo}-e${FGReset} ${FGVerdeChiaro}${C}${FGReset}"
+      echo -e "#    ${0} ${FGGiallo}-e${FGReset} ${FGVerdeChiaro}${C}${FGReset}"
     done
   
   fi
   
-  echo -e ""
+  trailer
 
   exit 999
 }
@@ -51,12 +51,17 @@ function header
   echo -e "########################################################################"
 }
 
+function trailer
+{
+  echo -e "#"
+  echo -e "########################################################################"
+  echo -e ""
+}
+
 function missingEnv
 {
-  echo -e ""
-  echo -e "- ${FGRossoChiaro}Attenzione${FGReset}: l'environment ${FGGiallo}${ENV}.${CATENA}${FGReset} non esiste"
-
-  usage
+  echo -e "#"
+  esciMale "87" "L'environment ${FGGiallo}${ENV}.${CATENA}${FGReset} non esiste"
 }
 
 function esciMale
@@ -77,8 +82,8 @@ function esciMale
   
   echo -e "#"
   echo -e "#  - Exit Code ${FGRossoChiaro}${1}${FGReset}"
-  echo -e "#"
-  echo -e "########################################################################"
+
+  trailer
     
   exit ${1}
 }
@@ -187,6 +192,31 @@ function go
   fi
 }
 
+
+
+
+
+
+
+if [[ ! -f ${LIB_DIR}/colori.conf ]]; then
+  echo -e "#"
+  esciMale 666 "Impossibile trovare il file di conf\n#\n#          ${FGGiallo}${LIB_DIR}/colori.conf${FGReset}!"
+else
+  . ${LIB_DIR}/colori.conf
+fi
+
+header
+
+if [[ $# -lt 1 ]]; then
+  usage
+fi
+
+
+
+
+
+
+
 while getopts "he:" Option
 do
   case $Option in
@@ -203,25 +233,6 @@ do
   esac
 done
 
-
-
-
-
-if [[ ! -f ${LIB_DIR}/colori.conf ]]; then
-  echo -e "#"
-  esciMale 666 "Impossibile trovare il file di conf\n#\n#          ${FGGiallo}${LIB_DIR}/colori.conf${FGReset}!"
-else
-  . ${LIB_DIR}/colori.conf
-fi
-
-header
-
-
-
-if [[ $# -lt 1 ]]; then
-  usage
-fi
-
 if [[ -f ${CONF_DIR}/env.${ENV}.${CATENA} ]]; then
 
   ENV_CONF=${CONF_DIR}/env.${ENV}.${CATENA}
@@ -231,9 +242,8 @@ if [[ -f ${CONF_DIR}/env.${ENV}.${CATENA} ]]; then
   read -a DESTINATARI_LIST <<< ${DESTINATARI}
 
   go
-  echo -e "#"
-  echo -e "########################################################################"
-  echo -e ""
+  
+  trailer
 
 else
   missingEnv

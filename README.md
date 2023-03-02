@@ -40,11 +40,11 @@ chmod +x install.sh
 
 ```
 
+> Per le successive installazioni e/o update seguire la procedura di [Update](https://github.com/mapuricelli/jms_queue_report#updates).
+
 ## Configurazione
 
 > Per ogni Environment desiderato creare un nuovo file di configurazione partendo dal template ```conf/env.Template.PRO``` .
-
-> Nel file di configurazione appena creato valorizzare dunque le seguenti variabili in base al proprio ambiente d'installazione.
 
 > Esempio per un **ipotetico** Environment **SBTEST** in Ambiente **3B**:
 
@@ -58,7 +58,9 @@ cp env.Template.PRO env.SBTEST.3B
 
 ```
 
-> Valorizzazione variabili custom nell'ipotetico file ```conf/env.SBTEST.3B```
+> Nel file di configurazione appena creato valorizzare dunque le seguenti variabili in base al proprio ambiente d'installazione.
+
+> Esempio per l'ipotetico file ```conf/env.SBTEST.3B```
 
 ```bash
 export MAIL_SBJ_PREFIX=SB_TEST
