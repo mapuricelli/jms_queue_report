@@ -122,7 +122,6 @@ function go
     echo -en "#  - Aggiungo i permessi di esecuzione dove necessario"
     chmod +x ${SCRIPT_DIR}/jqr
     chmod +x ${SCRIPT_DIR}/update
-    chmod +x ${BIN_DIR}/uuencode
     chmod +x ${BIN_DIR}/csv2html
     echo -e  " ${FGVerdeChiaro}OK${FGReset}"
     echo -e  "#"
@@ -147,11 +146,12 @@ function cleanObsolete
 
     cd ${SCRIPT_DIR}
     find . -name .gitignore -exec rm -f {} \;
-    rm    -f install.sh
-    rm    -f inst-update.sh
-    rm    -f update.sh
-    rm    -f start.sh
-    rm    -f bin/csv2html.sh
+    rm -f install.sh
+    rm -f inst-update.sh
+    rm -f update.sh
+    rm -f start.sh
+    rm -f bin/csv2html.sh
+    rm -f bin/uuencode
 }
 
 echo -e
