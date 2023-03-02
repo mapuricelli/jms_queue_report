@@ -160,6 +160,12 @@ function go
     do
       echo -e "#    * ${FGAzzurroChiaro}${DEST}${FGReset}"
     done
+    
+    ATTACHMENTS=
+    for MOD in "${MODULI_JMS_LIST[@]}"
+    do
+      ATTACHMENTS="${ATTACHMENTS} -a ${MOD_SPOOL_DIR}/${MOD_FILENAME}.zip"
+    done
 
     # Concateno gli allegati e mando mail
     ( 
@@ -176,16 +182,7 @@ function go
       echo ""
       echo "Manuel"
       echo "347 7098296"
-	  
-	  for MOD in "${MODULI_JMS_LIST[@]}"
-      do
-        MOD_SPOOL_DIR=${SPOOL_DIR}/${CATENA}/${ENV}/${MOD}
-		MOD_FILENAME=${MOD}_${SPOOL_NAMING_CONV}
-		
-        ${BIN_DIR}/uuencode ${MOD_SPOOL_DIR}/${MOD_FILENAME}.zip $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}.zip)
-      done
-
-    ) | mailx -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
+    ) | mailx ${ATTACHMENTS} -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
 
     rm -f ${SPOOL_DIR}/*/*/*/*.csv
     rm -f ${SPOOL_DIR}/*/*/*/*.txt
