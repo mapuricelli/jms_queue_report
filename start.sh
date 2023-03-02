@@ -26,7 +26,7 @@ function usage
 
   ls -1 ${CONF_DIR}/env.* | grep -v ${CONF_DIR}/env.Template.PRO | awk -F"." '{print $2"."$3}' | sort -u | while read C
   do
-    echo -e "    ${0} -e ${FGVerdeChiaro}${C}${FGReset}"
+    echo -e "    ${0} ${FGGiallo}-e${FGReset} ${FGVerdeChiaro}${C}${FGReset}"
   done
   
   echo -e ""
@@ -126,12 +126,12 @@ function go
       cat ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv | column -t -s "|" > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.txt
 
       # Comprimo il tutto
-      (cd ${MOD_SPOOL_DIR}/ && tar -cf $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}).tar $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}).*)
+      (cd ${MOD_SPOOL_DIR}/ && zip -q $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}).zip $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}).*)
 	  
       echo -e "#"
       echo -e "#    ${FGAzzurroChiaro}${MOD_SPOOL_DIR}/${FGReset}"
       echo -e "#"
-      echo -e "#    --> ${FGVerdeChiaro}${MOD_FILENAME}.tar${FGReset}"
+      echo -e "#    --> ${FGVerdeChiaro}${MOD_FILENAME}.zip${FGReset}"
 
     done
 
@@ -164,7 +164,7 @@ function go
         MOD_SPOOL_DIR=${SPOOL_DIR}/${CATENA}/${ENV}/${MOD}
 		MOD_FILENAME=${MOD}_${SPOOL_NAMING_CONV}
 		
-        ${BIN_DIR}/uuencode ${MOD_SPOOL_DIR}/${MOD_FILENAME}.tar $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}.tar)
+        ${BIN_DIR}/uuencode ${MOD_SPOOL_DIR}/${MOD_FILENAME}.zip $(basename ${MOD_SPOOL_DIR}/${MOD_FILENAME}.zip)
       done
 
     ) | mailx -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
@@ -206,6 +206,8 @@ else
 fi
 
 header
+
+
 
 if [[ $# -lt 1 ]]; then
   usage
