@@ -50,9 +50,7 @@ function esciMale
 function download
 {
   echo -e  "#"
-  echo -e  "#  - Scarico l'archivio aggiornato da GitHub:"
-  echo -e  "#"
-  echo -en "#      ${FGiallo}https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report/${FGReset}"
+  echo -en "#  - Scarico l'archivio aggiornato da GitHub"
   curl -s --connect-timeout 3 \
     --output /tmp/jms_queue_report-main.zip \
     --location https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip
@@ -62,7 +60,7 @@ function download
     echo -e "#"
     esciMale 888 "Impossibile scaricare l'archivio da GitHub.\n#          Verificare che questa macchina abbia accesso a Internet\n#          in caso contrario:\n#\n#          * Scaricare l'archivio manualmente tramite browser da:\n#            https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip\n#\n#          * Posizionarlo sotto ${FGGiallo}/tmp/jms_queue_report-main.zip${FGReset} e rilanciare questo script."
   else
-    echo -e "              ${FGVerdeChiaro}OK${FGReset}"
+    echo -e " ${FGVerdeChiaro}OK${FGReset}"
   fi
 }
 
@@ -112,7 +110,7 @@ function go
 {
   
   echo -e  "#"
-  echo -e "#  - Mi porto nella ${FGVerdeChiaro}$(echo ${INSTALL_DIR} | sed -e 's/$/\//')${FGReset} ed estraggo i file"
+  echo -en "#  - Mi porto in ${FGMarrone}\${INSTALL_DIR}${FGReset} ed estraggo i file"
   
   cd ${INSTALL_DIR} && unzip -oq /tmp/jms_queue_report-main.zip
   
@@ -121,22 +119,25 @@ function go
     echo -e "#"
     esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${INSTALL_DIR}${FGReset}.\n#          Verificare i permessi su file e directory."
   else  
-    echo -e "#    ${FGVerdeChiaro}OK${FGReset}"
-    echo -e "#"
-    
-    echo -e "#  - Aggiungo i permessi di esecuzione dove necessario"
-    rm -f  ${INSTALL_DIR}/jms_queue_report
-    ln -fs ${INSTALL_DIR}/jms_queue_report-main/ ${INSTALL_DIR}/jms_queue_report
+    echo -e  " ${FGVerdeChiaro}OK${FGReset}"
+    echo -en "#  - Aggiungo i permessi di esecuzione dove necessario"
     chmod +x ${SCRIPT_DIR}/start.sh
-    rm -f    ${SCRIPT_DIR}/update.sh
-    chmod +x ${SCRIPT_DIR}/inst-update.sh
+    rm -f    ${SCRIPT_DIR}/inst-update.sh
     chmod +x ${BIN_DIR}/uuencode
     chmod +x ${BIN_DIR}/csv2html.sh
-    echo -e "#    ${FGVerdeChiaro}OK${FGReset}"
-    echo -e "#"
+    echo -e  " ${FGVerdeChiaro}OK${FGReset}"
+    echo -e  "#"
   fi
-  
-  echo -e  "#"
+   
+  echo -e "#"
+  echo -e "#  - Update terminato, vai alla directory d'installazione:"
+  echo -e "# "
+  echo -e "#      cd ${FGMarrone}${INSTALL_DIR%/}/${FGVerdeChiaro}jms_queue_report${FGReset}/"
+  echo -e "# "
+  echo -e "#  - Per ulteriori info fai riferimento alla guida su GitHub:"
+  echo -e "# "
+  echo -e "#      ${FGiallo}https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report#readme${FGReset}"
+  echo -e "#"
   echo -e "########################################################################"
   
 }

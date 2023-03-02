@@ -62,12 +62,11 @@ function go
   echo -e "#"
   echo -e "#  - Installazione terminata, vai alla directory d'installazione:"
   echo -e "# "
-  echo -e "#      cd ${FGMarrone}${INSTALL_DIR}${FGVerdeChiaro}jms_queue_report${FGReset}/"
+  echo -e "#      cd ${FGMarrone}${INSTALL_DIR%/}/${FGVerdeChiaro}jms_queue_report${FGReset}/"
   echo -e "# "
   echo -e "#  - Per effettuare la configurazione segui la guida su GitHub:"
   echo -e "# "
   echo -e "#      ${FGiallo}https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report#configurazione${FGReset}"
-  
   echo -e "#"
   echo -e "########################################################################"
   

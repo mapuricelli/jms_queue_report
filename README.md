@@ -33,8 +33,8 @@
 
 ```bash
 cd /tmp/
-unzip -jod lib/ jms_queue_report-main.zip jms_queue_report-main/lib/colori.conf lib/colori.conf 
-unzip -jod .    jms_queue_report-main.zip jms_queue_report-main/install.sh
+unzip -q -jod lib/ jms_queue_report-main.zip jms_queue_report-main/lib/colori.conf lib/colori.conf 
+unzip -q -jod .    jms_queue_report-main.zip jms_queue_report-main/install.sh
 chmod +x install.sh
 ./install.sh
 
