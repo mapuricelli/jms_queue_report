@@ -47,7 +47,7 @@ function header
 {
   echo -e
   echo -e "########################################################################"
-  echo -e "########################### ${FGAzzurroChiaro}JMS Queue Report${FGReset} ###########################"
+  echo -e "############################ ${FGAzzurroChiaro}JMS Queue Report${FGReset} ##########################"
   echo -e "########################################################################"
 }
 
@@ -92,8 +92,10 @@ function go
 {
 
   if [[ ${CATENA} != "" ]]; then
+    echo -e "################################ ${FGAzzurroChiaro}${ENV} ${CATENA}${FGReset} ###############################"
+    echo -e "########################################################################"
     echo -e "#"
-    echo -e "#  - Per tutte le Destinazioni presenti in catena ${FGGiallo}Catena ${CATENA}${FGReset} nei seguenti Moduli JMS:"
+    echo -e "#  - Per tutte le Destinazioni presenti nei seguenti Moduli JMS:"
     echo -e "#"
 	for MOD in "${MODULI_JMS_LIST[@]}"
     do

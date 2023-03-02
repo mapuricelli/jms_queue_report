@@ -114,8 +114,8 @@ function chiediInstallDir
 
 echo -e
 echo -e "########################################################################"
-echo -e "########################### ${FGAzzurroChiaro}JMS Queue Report${FGReset} ###########################"
-echo -e "######################## ${FGGiallo}Aggiornamento Software${FGReset} ########################"
+echo -e "########################## ${FGAzzurroChiaro}JMS Queue Report${FGReset} ############################"
+echo -e "####################### ${FGGiallo}Aggiornamento Software${FGReset} #########################"
 echo -e "########################################################################"
 echo -e "#"
 
