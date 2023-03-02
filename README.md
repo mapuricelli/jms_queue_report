@@ -51,7 +51,7 @@ chmod +x install.sh
 ```bash
 # Duplico il template
 # Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventuale file già esistente.
-cd ${INSTALL_DIR}/jms_queue_report/conf/
+cd ${HOME}/jms_queue_report/conf/
 cp env.Template.PRO env.SBTEST.3B
 
 ```
@@ -85,7 +85,7 @@ export SETDOMAINENV_PATH="/app/oss/bea-domains/sbtest-domain/bin/setDomainEnv.sh
 > Esempio:
 
 ```bash
-cd ${INSTALL_DIR}/jms_queue_report/
+cd ${HOME}/jms_queue_report/
 ./start.sh
 
 ```

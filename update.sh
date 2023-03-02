@@ -9,7 +9,6 @@ export SPOOL_DIR="${SCRIPT_DIR}/spools"
 export CONF_DIR=$"${SCRIPT_DIR}/conf"
 export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
-export INSTALL_DIR="${SCRIPT_DIR}"
 . ${LIB_DIR}/colori.conf
 
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
@@ -110,14 +109,14 @@ function go
 {
   
   echo -e  "#"
-  echo -en "#  - Mi porto in ${FGMarrone}\${INSTALL_DIR}${FGReset} ed estraggo i file"
+  echo -en "#  - Estraggo l'archivio"
   
-  cd ${INSTALL_DIR} && unzip -oq /tmp/jms_queue_report-main.zip
+  cd ${HOME} && unzip -oq /tmp/jms_queue_report-main.zip
   
   if [[ $? -ne 0 ]]; then
     echo -e ""
     echo -e "#"
-    esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${INSTALL_DIR}${FGReset}.\n#          Verificare i permessi su file e directory."
+    esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${HOME}${FGReset}.\n#          Verificare i permessi su file e directory."
   else  
     echo -e  " ${FGVerdeChiaro}OK${FGReset}"
     echo -en "#  - Aggiungo i permessi di esecuzione dove necessario"
@@ -132,7 +131,7 @@ function go
   echo -e "#"
   echo -e "#  - Update terminato, vai alla directory d'installazione:"
   echo -e "# "
-  echo -e "#      cd ${FGMarrone}${INSTALL_DIR%/}/${FGVerdeChiaro}jms_queue_report${FGReset}/"
+  echo -e "#      cd ${FGMarrone}${HOME%/}/${FGVerdeChiaro}jms_queue_report${FGReset}/"
   echo -e "# "
   echo -e "#  - Per ulteriori info fai riferimento alla guida su GitHub:"
   echo -e "# "

@@ -19,15 +19,24 @@ export ENV=
 export CATENA=
 
 function usage
-{
-  echo -e ""
-  echo -e "- Parametri di Environment disponibili:"
-  echo -e ""
+{  
+  COUNT=$(ls -1 ${CONF_DIR}/env.* | grep -v ${CONF_DIR}/env.Template.PRO | wc -l )
 
-  ls -1 ${CONF_DIR}/env.* | grep -v ${CONF_DIR}/env.Template.PRO | awk -F"." '{print $2"."$3}' | sort -u | while read C
-  do
-    echo -e "    ${0} ${FGGiallo}-e${FGReset} ${FGVerdeChiaro}${C}${FGReset}"
-  done
+  if [[ $COUNT -eq 0 ]]; then
+    echo "#"
+    esciMale "87" "Non e' ancora stato configurato alcun Environment"
+    
+  else
+    echo -e ""
+    echo -e "- Parametri di Environment disponibili:"
+    echo -e ""
+    
+    ls -1 ${CONF_DIR}/env.* | grep -v ${CONF_DIR}/env.Template.PRO | awk -F"." '{print $2"."$3}' | sort -u | while read C
+    do
+      echo -e "    ${0} ${FGGiallo}-e${FGReset} ${FGVerdeChiaro}${C}${FGReset}"
+    done
+  
+  fi
   
   echo -e ""
 

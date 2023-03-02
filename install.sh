@@ -43,9 +43,10 @@ function go
     
     cd ${INSTALL_DIR}/
     unzip -oq /tmp/jms_queue_report-main.zip
-    rm -f  ./jms_queue_report
-    ln -fs ./jms_queue_report-main/ ./jms_queue_report
-    cd ./jms_queue_report
+    rm -f  ${HOME}/jms_queue_report
+    ln -fs ./jms_queue_report-main/ ${HOME}/jms_queue_report
+    ln -fs ./jms_queue_report-main/ ${HOME}/jms_queue_report
+    cd ${HOME}/jms_queue_report
     chmod +x start.sh
     chmod +x update.sh
     rm    -f install.sh
@@ -62,7 +63,7 @@ function go
   echo -e "#"
   echo -e "#  - Installazione terminata, vai alla directory d'installazione:"
   echo -e "# "
-  echo -e "#      cd ${FGMarrone}${INSTALL_DIR%/}/${FGVerdeChiaro}jms_queue_report${FGReset}/"
+  echo -e "#      cd ${FGMarrone}${HOME%/}/${FGVerdeChiaro}jms_queue_report${FGReset}/"
   echo -e "# "
   echo -e "#  - Per effettuare la configurazione segui la guida su GitHub:"
   echo -e "# "
