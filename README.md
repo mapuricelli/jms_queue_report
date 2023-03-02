@@ -17,7 +17,7 @@
   * Comma Separated con estensione **.csv** (separatore pipe "|")
   * Tabella ascii con estensione **.txt** (comando unix *column*) 
 
-> Essa viene poi compressa, backuppata sotto la directory ```spool/``` e inviata via mail.
+> Essa viene poi compressa, backuppata sotto la directory ```spools/``` e inviata via mail.
   
 ## Prerequisiti
 
