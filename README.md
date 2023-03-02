@@ -48,7 +48,7 @@ chmod +x install.sh
 
 > Esempio per un **ipotetico** Environment **SBTEST** in Ambiente **3B**:
 
-> __Warning__ Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventuale file già esistente.
+> :fire::skull: Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventuale file già esistente.
 
 ```bash
 # Duplico il template
