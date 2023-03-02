@@ -92,8 +92,10 @@ function go
 {
 
   if [[ ${CATENA} != "" ]]; then
-    echo -e "################################ ${FGAzzurroChiaro}${ENV} ${CATENA}${FGReset} ###############################"
-    echo -e "########################################################################"
+  
+    echo -e "#"
+    echo -e "#    * Environment: ${FGVerdeChiaro}${ENV}${FGReset}"
+    echo -e "#    * Catena:      ${FGVerdeChiaro}${CATENA}${FGReset}"
     echo -e "#"
     echo -e "#  - Per tutte le Destinazioni presenti nei seguenti Moduli JMS:"
     echo -e "#"
