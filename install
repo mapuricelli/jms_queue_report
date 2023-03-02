@@ -2,7 +2,7 @@
 
 export INSTALL_DIR="${HOME}"
 export SCRIPT_DIR=
-. lib/colori.conf
+. colori.conf
 
 function usage
 {
