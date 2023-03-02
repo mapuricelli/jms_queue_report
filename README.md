@@ -44,6 +44,8 @@ chmod +x install.sh
 
 > Per ogni Environment desiderato creare un nuovo file di configurazione partendo dal template ```conf/env.Template.PRO``` .
 
+> Nel file di configurazione appena creato valorizzare dunque le seguenti variabili in base al proprio ambiente d'installazione.
+
 > Esempio per un **ipotetico** Environment **SBTEST** in Ambiente **3B**:
 
 > __Warning__ Attenzione: eseguire i seguenti comandi solo la prima volta per non sovrascrivere un eventuale file già esistente.
@@ -56,37 +58,38 @@ cp env.Template.PRO env.SBTEST.3B
 
 ```
 
-> Editare il file ```conf/env.SBTEST.3B``` appena creato specificando gli **ipotetici** parametri desiderati.
-
-> Esempio di cui sopra:
+> Valorizzazione variabili custom nell'ipotetico file ```conf/env.SBTEST.3B```
 
 ```bash
-# Lista dei Moduli JMS interessati separati da spazio
+export MAIL_SBJ_PREFIX=SB_TEST
 export MODULI_JMS='My_JMS_Module'
-
-# URL t3 di connessione a Weblogic e relativi utente/password amministrative
 export ADMIN_URL='t3://sbtest.admin.3b.acme.com:7001'
 export ADMIN_USER='weblogic'
 export ADMIN_PASSWD='welcome1'
-
- # Lista destinatari per la mail di Reportistica separati da virgola
 export DESTINATARI='tester.uno@acme.com,tester.due@acme.com,tl.uno@acme.com'
-
-# Path dello script "setDomainEnv"
 export SETDOMAINENV_PATH="/app/oss/bea-domains/sbtest-domain/bin/setDomainEnv.sh"
-. ${SETDOMAINENV_PATH}
 
 ```
 
 ## Esecuzione
 
-> Dare i permessi d'esecuzione necessari ed eseguire lo script ```start.sh``` senza parametri per visualizzare gli Environment disponibili (il template viene skippato).
+> Eseguire lo script ```start.sh``` senza parametri per visualizzare gli Environment disponibili (il template viene skippato).
 
 > Esempio:
 
 ```bash
 cd ${HOME}/jms_queue_report/
 ./start.sh
+
+```
+  
+## Updates
+
+> Eseguire lo script ```start.sh``` senza parametri e seguire le istruzioni a video.
+
+```bash
+cd ${HOME}/jms_queue_report/
+./update.sh
 
 ```
 

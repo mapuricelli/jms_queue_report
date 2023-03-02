@@ -24,7 +24,7 @@ function usage
 
   if [[ $COUNT -eq 0 ]]; then
     echo "#"
-    esciMale "87" "Non e' ancora stato configurato alcun Environment"
+    esciMale "87" "Non e' ancora stato configurato alcun Environment.\n#          Per ulteriori informazioni consultare la sezione Configurazione su GitHub:\n#\n#          https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report#configurazione${FGReset}"
     
   else
     echo -e ""

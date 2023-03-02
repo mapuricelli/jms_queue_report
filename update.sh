@@ -49,7 +49,7 @@ function esciMale
 function download
 {
   echo -e  "#"
-  echo -en "#  - Scarico l'archivio aggiornato da GitHub"
+  echo -en "#  - Scarico l'archivio aggiornato da GitHub."
   curl -s --connect-timeout 3 \
     --output /tmp/jms_queue_report-main.zip \
     --location https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip
@@ -57,7 +57,7 @@ function download
   if [[ $? -ne 0 ]]; then
     echo -e ""
     echo -e "#"
-    esciMale 888 "Impossibile scaricare l'archivio da GitHub.\n#          Verificare che questa macchina abbia accesso a Internet\n#          in caso contrario:\n#\n#          * Scaricare l'archivio manualmente tramite browser da:\n#            https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip\n#\n#          * Posizionarlo sotto ${FGGiallo}/tmp/jms_queue_report-main.zip${FGReset} e rilanciare questo script."
+    esciMale 888 "Impossibile scaricare l'archivio da GitHub.\n#          Verificare che questa macchina abbia accesso a Internet\n#          in caso contrario:\n#\n#          * Scaricare l'archivio manualmente tramite browser da:\n#\n#            https://github.com/${FGMarrone}mapuricelli${FGReset}/${FGGiallo}jms_queue_report/archive/refs/heads/main.zip${FGReset}\n#\n#          * Posizionarlo sotto ${FGGiallo}/tmp/jms_queue_report-main.zip${FGReset} e rilanciare questo script."
   else
     echo -e " ${FGVerdeChiaro}OK${FGReset}"
   fi
