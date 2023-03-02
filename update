@@ -50,7 +50,7 @@ function download
 {
   echo -e  "#"
   echo -en "#  - Scarico l'archivio aggiornato da GitHub."
-  curl -s --connect-timeout 3 \
+  curl -s --connect-timeout 5 \
     --output /tmp/jms_queue_report-main.zip \
     --location https://github.com/mapuricelli/jms_queue_report/archive/refs/heads/main.zip
 
