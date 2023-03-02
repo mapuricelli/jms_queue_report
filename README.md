@@ -36,6 +36,7 @@
 ```bash
 cd ${HOME}
 unzip -oq /tmp/jms_queue_report-main.zip
+rm -f ${HOME}/jms_queue_report
 ln -fs ${HOME}/jms_queue_report-main/ ${HOME}/jms_queue_report
 cd ${HOME}/jms_queue_report/
 chmod +x ./inst-update.sh
