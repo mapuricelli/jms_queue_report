@@ -131,7 +131,7 @@ function go
 	  (head -n 1 ${TMP_SPOOL}_${MOD} && tail -n +2 ${TMP_SPOOL}_${MOD} | sort) > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv
 
       # Creo la versione html
-      ${BIN_DIR}/csv2html.sh ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
+      ${BIN_DIR}/csv2html ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
 	  sed -i "s/{{TITOLO}}/<h1>JMS Queue Report<\/h1>/" ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
 	  sed -i "s/{{SOTTOTITOLO}}/<h3>(${ENV} - ${CATENA})<\/h3>/" ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
 	  sed -i "s/{{TITOLETTO}}/<h2>${MOD}<\/h2>/" ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html

@@ -101,7 +101,7 @@ function checkPresent
   fi
   
   if [[ -f /tmp/jms_queue_report-main.zip ]]; then
-    go
+    go && cleanObsolete
   fi
 }
 
@@ -120,10 +120,10 @@ function go
   else  
     echo -e  " ${FGVerdeChiaro}OK${FGReset}"
     echo -en "#  - Aggiungo i permessi di esecuzione dove necessario"
-    chmod +x ${SCRIPT_DIR}/start.sh
-    rm -f    ${SCRIPT_DIR}/inst-update.sh
+    chmod +x ${SCRIPT_DIR}/jqr
+    chmod +x ${SCRIPT_DIR}/update
     chmod +x ${BIN_DIR}/uuencode
-    chmod +x ${BIN_DIR}/csv2html.sh
+    chmod +x ${BIN_DIR}/csv2html
     echo -e  " ${FGVerdeChiaro}OK${FGReset}"
     echo -e  "#"
   fi
@@ -139,6 +139,19 @@ function go
   echo -e "#"
   echo -e "########################################################################"
   
+}
+
+function cleanObsolete
+{
+    # Cancello i file obsoleti e inutili!
+
+    cd ${SCRIPT_DIR}
+    find . -name .gitignore -exec rm -f {} \;
+    rm    -f install.sh
+    rm    -f inst-update.sh
+    rm    -f update.sh
+    rm    -f start.sh
+    rm    -f bin/csv2html.sh
 }
 
 echo -e

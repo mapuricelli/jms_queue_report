@@ -25,7 +25,7 @@
 
 > Occorre che sulla macchina su cui si vuole installare **JMS Queue Report** ci sia già un'installazione funzionante di Weblogic WLST.
 
-> E' anche necessario che l'**Admin_Server** specificato nella variabile ```${ADMIN_URL}``` *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))* sia in RUNNING.
+> E' anche necessario che l'**Admin Server** specificato nella variabile ```${ADMIN_URL}``` sia in RUNNING *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))*.
   
 ## Prima Installazione
 
@@ -34,9 +34,9 @@
 ```bash
 cd /tmp/
 unzip -q -jod lib/ jms_queue_report-main.zip jms_queue_report-main/lib/colori.conf
-unzip -q -jod .    jms_queue_report-main.zip jms_queue_report-main/install.sh
-chmod +x install.sh
-./install.sh
+unzip -q -jod .    jms_queue_report-main.zip jms_queue_report-main/install
+chmod +x install
+./install
 
 ```
 
@@ -75,23 +75,23 @@ export SETDOMAINENV_PATH="/app/oss/bea-domains/sbtest-domain/bin/setDomainEnv.sh
 
 ## Esecuzione
 
-> Eseguire lo script ```start.sh``` senza parametri per visualizzare gli Environment disponibili (il template viene skippato).
+> Eseguire lo script ```jqr``` senza parametri per visualizzare gli Environment disponibili (il template viene skippato).
 
 > Esempio:
 
 ```bash
 cd ${HOME}/jms_queue_report/
-./start.sh
+./jqr
 
 ```
   
 ## Updates
 
-> Eseguire lo script ```start.sh``` senza parametri e seguire le istruzioni a video.
+> Eseguire lo script ```update``` senza parametri e seguire le istruzioni a video.
 
 ```bash
 cd ${HOME}/jms_queue_report/
-./update.sh
+./update
 
 ```
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export INSTALL_DIR="${HOME}"
+export SCRIPT_DIR=
 . lib/colori.conf
 
 function usage
@@ -45,13 +46,11 @@ function go
     unzip -oq /tmp/jms_queue_report-main.zip
     rm -f  ${HOME}/jms_queue_report
     ln -fs ${INSTALL_DIR}/jms_queue_report-main/ ${HOME}/jms_queue_report
-    cd ${HOME}/jms_queue_report
-    chmod +x start.sh
-    chmod +x update.sh
-    rm    -f install.sh
-    find . -name .gitignore -exec rm -f {} \;
+    cd ${SCRIPT_DIR}
+    chmod +x jqr
+    chmod +x update
     chmod +x bin/uuencode
-    chmod +x bin/csv2html.sh
+    chmod +x bin/csv2html
     
   else  
     echo -e "#"
@@ -70,6 +69,19 @@ function go
   echo -e "#"
   echo -e "########################################################################"
   
+}
+
+function cleanObsolete
+{
+    # Cancello i file obsoleti e inutili!
+
+    cd ${SCRIPT_DIR}
+    find . -name .gitignore -exec rm -f {} \;
+    rm    -f install.sh
+    rm    -f inst-update.sh
+    rm    -f update.sh
+    rm    -f start.sh
+    rm    -f bin/csv2html.sh
 }
 
 function chiediInstallDir
@@ -100,7 +112,7 @@ function chiediInstallDir
   done
   
   INSTALL_DIR="${INSTALL_DIR%/}/"
-
+  SCRIPT_DIR=${INSTALL_DIR}/jms_queue_report
 }
 
 echo -e
@@ -110,5 +122,5 @@ echo -e "######################## ${FGGiallo}Aggiornamento Software${FGReset} ##
 echo -e "########################################################################"
 echo -e "#"
 
-chiediInstallDir && go
+chiediInstallDir && go && cleanObsolete
 echo
