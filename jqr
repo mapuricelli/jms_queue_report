@@ -4,11 +4,18 @@ export TMP_SPOOL="$(mktemp)" || exit 1
 export TMP_ERR="$(mktemp)" || exit 1
 trap 'rm -f ${TMP_SPOOL}* ${TMP_ERR}* ' EXIT
 
+export SCRIPT_NAME=$(basename $0)
 export SCRIPT_DIR=$(readlink -f  $(dirname $0))
 export SPOOL_DIR="${SCRIPT_DIR}/spools"
 export CONF_DIR=$"${SCRIPT_DIR}/conf"
 export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
+
+export DOT_PROFILE="${SCRIPT_DIR}/.${SCRIPT_NAME}"
+  . ${DOT_PROFILE}
+  
+export MAILX=mailx
+if [[ ! -z ${CUSTOM_MAILX} ]]; then MAILX=${CUSTOM_MAILX}; fi
 
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
 export SPOOL_NAMING_CONV=
@@ -33,7 +40,7 @@ function usage
     
     ls -1 ${CONF_DIR}/env.* | grep -v ${CONF_DIR}/env.Template.PRO | awk -F"." '{print $2"."$3}' | sort -u | while read C
     do
-      echo -e "#    ${0} ${FGGiallo}-e${FGReset} ${FGVerdeChiaro}${C}${FGReset}"
+      echo -e "#    $(basename ${0}) ${FGGiallo}-e${FGReset} ${FGVerdeChiaro}${C}${FGReset}"
     done
   
   fi
