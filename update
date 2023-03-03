@@ -5,11 +5,14 @@ export TMP_ERR="$(mktemp)" || exit 1
 trap 'rm -f ${TMP_SPOOL}* ${TMP_ERR}* ' EXIT
 
 export SCRIPT_DIR=$(readlink -f  $(dirname $0))
+export SCRIPT_DIR_REAL=$(cd ${SCRIPT_DIR} && pwd -P)
 export SPOOL_DIR="${SCRIPT_DIR}/spools"
 export CONF_DIR=$"${SCRIPT_DIR}/conf"
 export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
 . ${LIB_DIR}/colori.conf
+
+export INSTALL_DIR="`echo "${SCRIPT_DIR_REAL}" | rev | cut -d/ -f2- | rev`/"
 
 export TIMESTAMP=$(date "+%Y%m%d_%H.%M.%S")
 
@@ -107,24 +110,41 @@ function checkPresent
 
 function go
 {
+  if [[ -d ${INSTALL_DIR} ]]; then
   
-  echo -e  "#"
-  echo -en "#  - Estraggo l'archivio"
+    # Estraggo l'archivio
+    cd ${INSTALL_DIR} && unzip -oq /tmp/jms_queue_report-main.zip
   
-  cd ${HOME} && unzip -oq /tmp/jms_queue_report-main.zip
-  
-  if [[ $? -ne 0 ]]; then
-    echo -e ""
-    echo -e "#"
-    esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${HOME}${FGReset}.\n#          Verificare i permessi su file e directory."
+    if [[ $? -ne 0 ]]; then
+      echo -e ""
+      echo -e "#"
+      esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${HOME}${FGReset}.\n#          Verificare i permessi su file e directory."
+    else
+	
+	  # (Ri)faccio il link simbolico nella ${HOME}
+      rm -f  ${HOME}/jms_queue_report
+      ln -fs ${INSTALL_DIR}jms_queue_report-main/ ${HOME}/jms_queue_report
+	  
+      # Mi porto nella dir d'installazione e concedo i permessi di esecuzione dove serve
+	  cd ${HOME}/jms_queue_report
+      chmod +x jqr
+      chmod +x update
+      chmod +x bin/csv2html
+      
+      # Popolo il .jqr dinamicamente... cosi se alcuni/tutti i valori sono già stati customizzati non vengono sovrascritti
+      touch .jqr
+      grep -q "CUSTOM_MAILX=\"" .jqr 2>/dev/null || echo '#CUSTOM_MAILX="/custom/dir/bin/mailx"' >> .jqr
+      
+      # Aggiorno il .profile/.bash_profile
+      grep -q "^PATH.*jms_queue_report.*" ${HOME}/.bash_profile || sed -i '/^PATH/ s/$/:\${HOME}\/jms_queue_report/' ${HOME}/.bash_profile
+      grep -q "^PATH.*jms_queue_report.*" ${HOME}/.profile      || sed -i '/^PATH/ s/$/:\${HOME}\/jms_queue_report/' ${HOME}/.profile
+      
+    fi
+
   else  
-    echo -e  " ${FGVerdeChiaro}OK${FGReset}"
-    echo -en "#  - Aggiungo i permessi di esecuzione dove necessario"
-    chmod +x ${SCRIPT_DIR}/jqr
-    chmod +x ${SCRIPT_DIR}/update
-    chmod +x ${BIN_DIR}/csv2html
-    echo -e  " ${FGVerdeChiaro}OK${FGReset}"
-    echo -e  "#"
+    echo -e "#"
+    esciMale 888 "Impossibile estrarre l'archivio nella ${FGGiallo}\${INSTALL_DIR}${FGReset}.\n#          Verificare i permessi su file e directory."
+    
   fi
    
   echo -e "#"
@@ -146,6 +166,7 @@ function cleanObsolete
 
     cd ${SCRIPT_DIR}
     find . -name .gitignore -exec rm -f {} \;
+    rm -f install
     rm -f install.sh
     rm -f inst-update.sh
     rm -f update.sh
@@ -162,3 +183,22 @@ echo -e "#######################################################################
 echo -e "#"
 
 checkPresent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
