@@ -12,7 +12,7 @@ export LIB_DIR="${SCRIPT_DIR}/lib"
 export BIN_DIR="${SCRIPT_DIR}/bin"
 
 export DOT_PROFILE="${SCRIPT_DIR}/.${SCRIPT_NAME}"
-  . ${DOT_PROFILE}
+. ${DOT_PROFILE}
   
 export MAILX=mailx
 if [[ ! -z ${CUSTOM_MAILX} ]]; then MAILX=${CUSTOM_MAILX}; fi
@@ -65,10 +65,16 @@ function trailer
   echo -e ""
 }
 
-function missingEnv
+function dotEnvMissing
 {
   echo -e "#"
-  esciMale "87" "L'environment ${FGGiallo}${ENV}.${CATENA}${FGReset} non esiste"
+  esciMale "87" "Il file di conf ${FGGiallo}${ENV}.${CATENA}${FGReset} non esiste"
+}
+
+function dotEnvInvalid
+{
+  echo -e "#"
+  esciMale "87" "Nel file di conf ${FGGiallo}${ENV}.${CATENA}${FGReset} non viene valorizzato il path del ${FGGiallo}setDomainEnv.sh${FGReset}"
 }
 
 function esciMale
@@ -246,6 +252,12 @@ if [[ -f ${CONF_DIR}/env.${ENV}.${CATENA} ]]; then
   ENV_CONF=${CONF_DIR}/env.${ENV}.${CATENA}
   . ${ENV_CONF}
 
+  if [[ -z ${SETDOMAINENV_PATH} ]]; then
+    dotEnvInvalid
+  else
+    . ${SETDOMAINENV_PATH} >/dev/null
+  fi
+
   read -a MODULI_JMS_LIST <<< ${MODULI_JMS}
   read -a DESTINATARI_LIST <<< ${DESTINATARI}
 
@@ -254,5 +266,5 @@ if [[ -f ${CONF_DIR}/env.${ENV}.${CATENA} ]]; then
   trailer
 
 else
-  missingEnv
+  dotEnvMissing
 fi

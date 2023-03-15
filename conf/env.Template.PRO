@@ -14,4 +14,3 @@ export DESTINATARI='none1@acme.com,none2@acme.com'
 
 # Path dello script "setDomainEnv"
 export SETDOMAINENV_PATH="/app/oss/bea-domains/wl_pro_domain/bin/setDomainEnv.sh"
-. ${SETDOMAINENV_PATH} >/dev/null
