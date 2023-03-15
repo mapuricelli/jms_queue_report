@@ -1,12 +1,3 @@
-Per ogni Coda JMS presente nei Moduli selezionati sono stati estratti i seguenti valori per tutte le Destinazioni possibili:
-
-  * Consumer correnti      (Consumers Current Count)
-  * Numero max di consumer (Consumers High Count)
-  * Consumer totali        (Consumers Total Count)
-  * Messaggi correnti      (Messages Current Count)
-  * Numero max di messaggi (Messages High Count)
-  * Messaggi in sospeso    (Messages Pending Count)
-
 In allegato i report prodotti.
 
 ##### JMS Queue Report #####
