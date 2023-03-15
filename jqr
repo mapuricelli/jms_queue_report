@@ -195,7 +195,7 @@ function go
       echo ""
       echo "Manuel"
       echo "347 7098296"
-    ) | mailx ${ATTACHMENTS} -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
+    ) | ${MAILX} ${ATTACHMENTS} -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
 
     rm -f ${SPOOL_DIR}/*/*/*/*.csv
     rm -f ${SPOOL_DIR}/*/*/*/*.txt
