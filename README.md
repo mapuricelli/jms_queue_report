@@ -25,7 +25,7 @@
 
 > Occorre che sulla macchina su cui si vuole installare **JMS Queue Report** ci sia già un'installazione funzionante di Weblogic WLST.
 
-> E' necessario che l'**Admin Server** specificato nella variabile ```${ADMIN_URL}``` sia in RUNNING *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))*.
+> E' necessario che l'**Admin Server** specificato nella variabile ```${ADMIN_URL}``` *(vedi sezione [Configurazione](https://github.com/mapuricelli/jms_queue_report#configurazione))* sia in RUNNING.
 
 > Verificare infine che sia installata una versione recente di ```mailx``` che accetti il flag ```-a``` per gli allegati.
   
@@ -62,7 +62,7 @@ cp env.Template.PRO env.SBTEST.3B
 
 > Nel file di configurazione appena creato valorizzare dunque le seguenti variabili in base al proprio ambiente d'installazione.
 
-> Esempio per l'ipotetico file ```conf/env.SBTEST.3B```
+> Esempio per l'ipotetico file ```conf/env.SBTEST.3B```:
 
 ```bash
 export MAIL_SBJ_PREFIX=SB_TEST
@@ -74,6 +74,14 @@ export DESTINATARI='tester.uno@acme.com,tester.due@acme.com,tl.uno@acme.com'
 export SETDOMAINENV_PATH="/app/oss/bea-domains/sbtest-domain/bin/setDomainEnv.sh"
 
 ```
+
+> Per specificare un path custom per il comando ```mailx``` decommentare ed aggiornare la variabile ```${CUSTOM_MAILX}``` nel file di conf ```${HOME}/jms_queue_report/.jqr```.
+
+```bash
+CUSTOM_MAILX="${HOME}/bin/mailx"
+```
+
+CUSTOM_MAILX="${HOME}/bin/mailx"
 
 ## Esecuzione
 
