@@ -133,7 +133,7 @@ function go
       
       # Popolo il .jqr dinamicamente... cosi se alcuni/tutti i valori sono già stati customizzati non vengono sovrascritti
       touch .jqr
-      grep -q "CUSTOM_MAILX=\"" .jqr 2>/dev/null || echo '#CUSTOM_MAILX="/custom/dir/bin/mailx"' >> .jqr
+      grep -q "^CUSTOM_MAILX=\"" .jqr 2>/dev/null || echo '#export CUSTOM_MAILX="/custom/dir/bin/mailx"' >> .jqr
       
       # Aggiorno il .profile/.bash_profile
       grep -q "^PATH.*jms_queue_report.*" ${HOME}/.bash_profile || sed -i '/^PATH/ s/$/:\${HOME}\/jms_queue_report/' ${HOME}/.bash_profile

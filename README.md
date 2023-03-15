@@ -78,10 +78,8 @@ export SETDOMAINENV_PATH="/app/oss/bea-domains/sbtest-domain/bin/setDomainEnv.sh
 > Per specificare un path custom per il comando ```mailx``` decommentare ed aggiornare la variabile ```${CUSTOM_MAILX}``` nel file di conf ```${HOME}/jms_queue_report/.jqr```.
 
 ```bash
-CUSTOM_MAILX="${HOME}/bin/mailx"
+export CUSTOM_MAILX="${HOME}/bin/mailx"
 ```
-
-CUSTOM_MAILX="${HOME}/bin/mailx"
 
 ## Esecuzione
 
