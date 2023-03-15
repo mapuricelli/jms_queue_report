@@ -180,22 +180,8 @@ function go
       ATTACHMENTS="${ATTACHMENTS} -a ${MOD_SPOOL_DIR}/${MOD_FILENAME}.zip"
     done
 
-    # Concateno gli allegati e mando mail
-    ( 
-      echo "Per ogni Coda JMS presente nei Moduli selezionati sono stati estratti i seguenti valori per tutte le Destinazioni possibili:"
-      echo ""
-      echo "  * Consumer correnti      (Consumers Current Count)"
-      echo "  * Numero max di consumer (Consumers High Count)"
-      echo "  * Consumer totali        (Consumers Total Count)"
-      echo "  * Messaggi correnti      (Messages Current Count)"
-      echo "  * Numero max di messaggi (Messages High Count)"
-      echo "  * Messaggi in sospeso    (Messages Pending Count)"
-      echo ""
-      echo "In allegato i report prodotti."
-      echo ""
-      echo "Manuel"
-      echo "347 7098296"
-    ) | ${MAILX} ${ATTACHMENTS} -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
+    # Mando mail con lo zip in allegato
+    cat ${LIB_DIR}/body.src | ${MAILX} ${ATTACHMENTS} -s "[${ENV} - ${CATENA}] JMS Queue Report" ${DESTINATARI}
 
     rm -f ${SPOOL_DIR}/*/*/*/*.csv
     rm -f ${SPOOL_DIR}/*/*/*/*.txt
