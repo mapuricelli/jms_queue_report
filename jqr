@@ -145,7 +145,7 @@ function go
 	  MOD_FILENAME=${MOD}_${SPOOL_NAMING_CONV}
 
       # Riordino e creo il .csv ufficiale
-	  (head -n 1 ${TMP_SPOOL}_${MOD} && tail -n +2 ${TMP_SPOOL}_${MOD} | sort) > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv
+	  (head -n 1 ${TMP_SPOOL}_${MOD} && tail -n +2 ${TMP_SPOOL}_${MOD} | sort -n -t "|" -k7,1 -r ) > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv
 
       # Creo la versione html
       ${BIN_DIR}/csv2html ${MOD_SPOOL_DIR}/${MOD_FILENAME}.csv > ${MOD_SPOOL_DIR}/${MOD_FILENAME}.html
